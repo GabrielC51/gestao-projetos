@@ -28,10 +28,10 @@ public class Projeto {
 
     @NotNull
     private Date dataEntrega;
-
+ 
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Tarefa> tarefas;
+    
     @ManyToMany(mappedBy = "projetos", fetch = FetchType.EAGER)
     private List<Usuario> usuarios;
-
-    @OneToMany(mappedBy = "projeto", fetch = FetchType.EAGER)
-    private List<Tarefa> tarefas;
 }

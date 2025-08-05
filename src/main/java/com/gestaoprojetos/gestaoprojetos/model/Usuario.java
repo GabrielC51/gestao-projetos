@@ -35,9 +35,14 @@ public class Usuario {
     @Column
     private String cargo;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Tarefa> tarefas;
 
     @ManyToMany
+    @JoinTable(
+        name = "usuario_projeto",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "projeto_id")
+    )
     private List<Projeto> projetos;
 }

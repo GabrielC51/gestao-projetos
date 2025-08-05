@@ -18,11 +18,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/usuario/**").hasRole("ADMIN")
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll()
+                        // .requestMatchers("/usuario/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
-                .headers(headers -> headers.disable())
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin()))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
