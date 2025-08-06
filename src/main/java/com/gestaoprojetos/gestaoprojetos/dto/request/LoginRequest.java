@@ -1,26 +1,20 @@
 package com.gestaoprojetos.gestaoprojetos.dto.request;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProjetoRequest {
+public class LoginRequest {
+
+    @Email
+    @NotNull
+    private String email;
 
     @NotNull
-    @Size(min = 3)
-    private String titulo;
-
-    @NotNull
-    @Size(min = 10)
-    private String descricao;
-
-    @NotNull
-    private LocalDateTime dataEntrega;
+    private String senha;
 }

@@ -1,5 +1,6 @@
 package com.gestaoprojetos.gestaoprojetos.service;
 
+import com.gestaoprojetos.gestaoprojetos.dto.mapper.UsuarioMapper;
 import com.gestaoprojetos.gestaoprojetos.dto.request.UsuarioRequest;
 import com.gestaoprojetos.gestaoprojetos.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,43 +17,39 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    //get
+    @Autowired
+    private UsuarioMapper mapper;
+
+    // GET
     public List<Usuario> getAllUsuarios(){
         return usuarioRepository.findAll();
     }
 
-    //get/{id}
+    // GET - {id}
     public Optional<Usuario> getById(Long id){
         return usuarioRepository.findById(id);
     }
 
-    //delete
+    // DELETE
     public void delete(Long id){
         usuarioRepository.deleteById(id);
     }
 
-    //post
-    public Usuario add(Usuario usuario){
-        if (usuarioRepository.existsByEmail(usuario.getEmail())){
+    // POST
+    public Usuario add(UsuarioRequest usuarioRequest) {
+        if (usuarioRepository.existsByEmail(usuarioRequest.getEmail())) {
             throw new IllegalArgumentException("Email já cadastrado");
         }
+        Usuario usuario = mapper.toEntity(usuarioRequest);
         return usuarioRepository.save(usuario);
     }
 
-    //put
-    public Usuario update(Long id, UsuarioRequest dto){
-        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
-
-        if (usuarioOptional.isEmpty()){
-            throw new IllegalArgumentException("Usuario não encontrado");
-        }
-
-        Usuario usuario = usuarioOptional.get();
-        usuario.setUsuarioId(id);
-        usuario.setNome(dto.getNome());
-        usuario.setCargo(dto.getCargo());
-        usuario.setEmail(dto.getEmail());
-
+    // PUT
+    public Usuario update(Long id, UsuarioRequest dto) {
+        Usuario usuario = usuarioRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Usuario não encontrado"));
+        
+        mapper.updateEntity(dto, usuario);
         return usuarioRepository.save(usuario);
     }
 

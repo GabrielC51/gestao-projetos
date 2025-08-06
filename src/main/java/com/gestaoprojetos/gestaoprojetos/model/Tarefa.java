@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -27,7 +27,7 @@ public class Tarefa {
     private String descricao;
 
     @NotNull
-    private Date dataEntrega;
+    private LocalDateTime dataEntrega;
 
     @ManyToOne
     @JsonIgnore
