@@ -4,7 +4,6 @@ import com.gestaoprojetos.gestaoprojetos.dto.request.UsuarioRequest;
 import com.gestaoprojetos.gestaoprojetos.model.Usuario;
 import com.gestaoprojetos.gestaoprojetos.service.UsuarioService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,7 @@ public class UsuarioController {
 
     // GET / - obter todos
     @GetMapping
+    @ResponseStatus(HttpStatus.OK)
     public List<Usuario> findAll() {
         return usuarioService.getAllUsuarios();
     }
@@ -28,22 +28,26 @@ public class UsuarioController {
 
     // GET /id - obter um
     @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Usuario> findById(@PathVariable("id") Long index) {
-        Optional<Usuario> resultado = usuarioService.getById(index);
-        return ResponseEntity.of(resultado);
+      Optional<Usuario> resultado = usuarioService.getById(index);
+      return ResponseEntity.of(resultado);
     }
+    
     // POST - criar
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario add(@RequestBody @Valid Usuario usuario) {
-        return usuarioService.add(usuario);
+    public Usuario add(@RequestBody @Valid UsuarioRequest usuarioRequest) {
+      return usuarioService.add(usuarioRequest);
     }
+    
     // PUT /id - modificar
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@PathVariable("id") Long index, @RequestBody UsuarioRequest dto) {
-        usuarioService.update(index, dto);
+      usuarioService.update(index, dto);
     }
+    
     // DELETE /id - apagar
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
