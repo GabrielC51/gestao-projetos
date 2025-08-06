@@ -3,6 +3,7 @@ package com.gestaoprojetos.gestaoprojetos.controller;
 import com.gestaoprojetos.gestaoprojetos.dto.request.UsuarioRequest;
 import com.gestaoprojetos.gestaoprojetos.model.Usuario;
 import com.gestaoprojetos.gestaoprojetos.service.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
+@Tag(name = "Usuários", description = "Endpoints para gerenciamento de usuários")
 public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;

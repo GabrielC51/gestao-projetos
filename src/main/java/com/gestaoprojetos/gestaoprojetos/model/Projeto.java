@@ -5,7 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,11 +30,11 @@ public class Projeto {
     private String descricao;
 
     @NotNull
-    private Date dataEntrega;
+    private LocalDateTime dataEntrega;
  
     @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Tarefa> tarefas;
+    private List<Tarefa> tarefas = new ArrayList<>();
     
     @ManyToMany(mappedBy = "projetos", fetch = FetchType.EAGER)
-    private List<Usuario> usuarios;
+    private List<Usuario> usuarios = new ArrayList<>();
 }

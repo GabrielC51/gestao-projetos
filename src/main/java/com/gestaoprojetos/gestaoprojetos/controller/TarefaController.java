@@ -3,6 +3,8 @@ package com.gestaoprojetos.gestaoprojetos.controller;
 import com.gestaoprojetos.gestaoprojetos.dto.request.TarefaRequest;
 import com.gestaoprojetos.gestaoprojetos.model.Tarefa;
 import com.gestaoprojetos.gestaoprojetos.service.TarefaService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/tarefas")
+@SecurityRequirement(name = "Bearer Authentication")
+@Tag(name = "Tarefas", description = "Endpoints para gerenciamento de tarefas")
 public class TarefaController {
 
     @Autowired
@@ -36,9 +40,13 @@ public class TarefaController {
     
     // POST - criar
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Tarefa add(@RequestBody @Valid TarefaRequest tarefaRequest) {
-        return tarefaService.add(tarefaRequest);
+    public ResponseEntity<Tarefa> add(@RequestBody @Valid TarefaRequest tarefaRequest) {
+        try {
+            Tarefa tarefa = tarefaService.add(tarefaRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Erro ao criar tarefa: " + e.getMessage());
+        }
     }
     
     // PUT /id - modificar

@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,11 +18,11 @@ public class TarefaRequest {
     private String titulo;
 
     @NotNull
-    @Size(min = 10)
+    @Size(min = 5, message = "Descrição deve ter no mínimo 5 caracteres")
     private String descricao;
 
     @NotNull
-    private Date dataEntrega;
+    private LocalDateTime dataEntrega;
 
     @NotNull
     private Long usuarioId;
