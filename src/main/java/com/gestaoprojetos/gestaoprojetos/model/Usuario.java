@@ -28,7 +28,7 @@ public class Usuario {
     @Email
     @Column(unique = true)
     @NotNull
-    private String Email;
+    private String email;
 
     @NotNull
     @Size(min = 3)
@@ -45,4 +45,12 @@ public class Usuario {
         inverseJoinColumns = @JoinColumn(name = "projeto_id")
     )
     private List<Projeto> projetos;
+
+    public Usuario(String nome, String email, List<Tarefa> tarefas, String cargo, List<Projeto> projetos) {
+        this.nome = nome;
+        this.email = email;
+        this.tarefas = tarefas;
+        this.cargo = cargo;
+        this.projetos = projetos;
+    }
 }
