@@ -51,7 +51,7 @@ public class UsuarioController {
     }
     
     // DELETE /id - apagar
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Long index) {
         usuarioService.delete(index);
