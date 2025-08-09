@@ -141,11 +141,11 @@ git clone https://github.com/GabrielC51/gestao-projetos.git
       mvn spring-boot:run
       ```
      
-6. Acesse a aplicação conforme instruções do projeto.
+5. Acesse a aplicação conforme instruções do projeto.
 
-   6.1. Para acessar as rotas protegidas (/projetos e /tarefas) o usuario precisa ter o cargo "ADMIN".
+   5.1. Para acessar as rotas protegidas (/projetos e /tarefas) o usuario precisa ter o cargo "ADMIN".
 
-   6.2. é possivel realizar os testes em /swagger-ui/index.html
+   5.2. é possivel realizar os testes em /swagger-ui/index.html
 ---
 
 ## Contribuidores
